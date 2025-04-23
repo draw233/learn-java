@@ -1,7 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.example</groupId>
     <artifactId>learn-java-parent</artifactId>
     <version>${revision}</version>
@@ -11,6 +10,8 @@
     <url>http://maven.apache.org</url>
     <modules>
         <module>common-dependencies-bom</module>
+        <module>spring-boot-redis-demo</module>
+        <module>spring-web-demo</module>
     </modules>
 
     <properties>
@@ -68,6 +69,9 @@
                     <configuration>
                         <!-- Activate the use of TCP to transmit events to the plugin to fix Corrupted STDOUT issue -->
                         <forkNode implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory"/>
+                        <argLine>
+                            -javaagent:"${settings.localRepository}/org/mockito/mockito-core/5.14.2/mockito-core-5.14.2.jar"
+                        </argLine>
                     </configuration>
                 </plugin>
                 <plugin>

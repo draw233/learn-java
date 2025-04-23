@@ -1,0 +1,40 @@
+clusterServersConfig:
+  idleConnectionTimeout: 10000
+  #  连接超时ms,最好不要低于500ms,因为连接超时过短，造成大量建连引发Redis雪崩
+  connectTimeout: 10000
+  #  redis 命令相应超时ms，合理配置
+  timeout: 2000
+  retryAttempts: 1
+  retryInterval: 1500
+  failedSlaveReconnectionInterval: 3000
+  failedSlaveCheckInterval: 60000
+  password: null
+  subscriptionsPerConnection: 5
+  clientName: null
+  loadBalancer: !<org.redisson.connection.balancer.RoundRobinLoadBalancer> { }
+  subscriptionConnectionMinimumIdleSize: 2
+  subscriptionConnectionPoolSize: 2
+  slaveConnectionMinimumIdleSize: 2
+  slaveConnectionPoolSize: 4
+  # master连接最小空闲数,保持masterConnectionMinimumIdleSize=masterConnectionMinimumIdleSize；建议根据需要设置( qps/主节点数/ (1000/每条命令的预计耗时ms)*(3/2)),且不超过业务线程数量;原则上不要超过50;例如： 主节点数：10,命令耗时:0.33ms, 10个连接的qps为: 10 * (1000ms/0.33ms) * 10 = 30w
+  masterConnectionMinimumIdleSize: 2
+  #master连接池大小,保持masterConnectionMinimumIdleSize=masterConnectionMinimumIdleSize
+  masterConnectionPoolSize: 2
+  #连接master,不要主从
+  readMode: "MASTER"
+  subscriptionMode: "MASTER"
+  nodeAddresses:
+    - "redis://127.0.0.1:7004"
+    - "redis://127.0.0.1:7001"
+    - "redis://127.0.0.1:7000"
+  #  集群路由定时的刷新时间
+  scanInterval: 30000
+  # dns刷新时间
+  dnsMonitoringInterval: 15000
+  pingConnectionInterval: 0
+  keepAlive: false
+  tcpNoDelay: false
+threads: 16
+nettyThreads: 32
+codec: !<org.redisson.codec.Kryo5Codec> { }
+transportMode: "NIO"
