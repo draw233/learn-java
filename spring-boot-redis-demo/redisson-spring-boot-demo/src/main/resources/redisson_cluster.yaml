@@ -4,7 +4,7 @@ clusterServersConfig:
   connectTimeout: 10000
   #  redis 命令相应超时ms，合理配置
   timeout: 2000
-  retryAttempts: 1
+  retryAttempts: 3
   retryInterval: 1500
   failedSlaveReconnectionInterval: 3000
   failedSlaveCheckInterval: 60000
